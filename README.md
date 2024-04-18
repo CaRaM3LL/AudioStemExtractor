@@ -18,8 +18,26 @@ AudioStemExtractor is a service developed using NestJS that allows users to auto
 
 ### Installation
 
-Clone the repository:
+- Create .env in root directory of your project and add: FADR_API_URL=https://api.fadr.com, FADR_API_KEY=yourapikey.
+- Clone the repository and place fadrapi.controller.ts, fadrapi.module.ts and fadrapi.service.ts in src/fadrapi.
+- Don't forget to place FadrApiModule in your app.module.ts file. Example:
 
-```bash
-git clone https://github.com/yourusername/AudioStemExtractor.git
-cd AudioStemExtractor
+```node
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { FadrApiModule } from './fadrapi/fadrapi.module';
+import { MixSongModule } from './mix_song/mix_song.module';
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    FadrApiModule,
+    MixSongModule,
+  ],
+  controllers: [],
+  providers: [],
+})
+export class AppModule {}
+```
