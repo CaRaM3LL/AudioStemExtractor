@@ -41,3 +41,25 @@ import { MixSongModule } from './mix_song/mix_song.module';
 })
 export class AppModule {}
 ```
+- Use stemSong method provided from service to get stems from a song:
+```node
+@Post('upload_and_get_stems')
+  async uploadAndGetStems() {
+    try {
+      const songPath = 'songs/songnName.MP3';
+      const songName = 'songName';
+      const songExt = 'mp3';
+      const outputDir = 'songs/output/';
+      const stemTypes = ['bass', 'drums', 'kicks'];
+      await this.fadrApiService.stemSong(
+        songPath,
+        songName,
+        songExt,
+        outputDir,
+        stemTypes,
+      );
+      return { message: 'Stem processing initiated successfully' };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+```
